@@ -44,10 +44,11 @@ jobs:
         platform: [x64, arm64]
     steps:
       - uses: actions/checkout@v4
+      # VCV 现在按 CPU 分别提供 Mac SDK（不再有 mac-x64+arm64 的合并包）
       - name: Get Rack SDK
         run: |
           pushd $HOME
-          curl -sSL -o Rack-SDK.zip https://vcvrack.com/downloads/Rack-SDK-${{ env.rack-sdk-version }}-mac-x64+arm64.zip
+          curl -fsSL -o Rack-SDK.zip https://vcvrack.com/downloads/Rack-SDK-${{ env.rack-sdk-version }}-mac-${{ matrix.platform }}.zip
           unzip -q Rack-SDK.zip
       - name: Build plugin
         run: |
